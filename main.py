@@ -6,7 +6,7 @@ import requests
 
 from utils.variables import CONSULTORES, LOGIN_URL, PAYLOAD, RELATORIO_URL
 
-date = datetime(2024, 4, 5)
+date = datetime(2024, 4, 15)
 
 start_date = int(datetime.combine(date, time.min).timestamp()) * 1000
 end_date = int(datetime.combine(date, time.max).timestamp()) * 1000 - 1
@@ -24,10 +24,21 @@ def login_vivo_gestao(url: str, payload: dict):
 def get_total_record_count(url: str, consultor: str, telefone: str):
     response = requests.get(url)
     json = response.json()
+    called_numbers = []
+    call_to_any_consul_number = False
+    if json["totalRecordCount"] > 0:
+        for call in json["result"]:
+            called_number = call["calledMsisdn"]
+            if called_numbers in list(CONSULTORES.values()):
+                called_numbers.append(called_number)
+                call_to_any_consul_number = True
+
     result = {
         "CONSULTOR": consultor,
         "TELEFONE": telefone,
-        "CHAMADAS": json["totalRecordCount"]
+        "CHAMADAS": json["totalRecordCount"],
+        "LIGOU PARA OUTRO CONSULTOR": call_to_any_consul_number,
+        "QUEM RECEBEU A LIGAÇÃO": str(called_numbers)
     }
     RECORDS.append(result)
 

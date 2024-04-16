@@ -21,6 +21,20 @@ CONSULTORES = {
     "VICTOR GABRIEL": "61996969544",
 }
 
+CONSULTORES = {
+    "ANA CLARA": "61996184016",
+    "DEIVID": "61982012100",
+    "KAUAN": "61996683502",
+    "LUCAS": "61999231754",
+    "MATEUS": "61998623254",
+    "NAIYARA": "61996882374",
+    "SARA": "61998243834",
+    "VANESSA": "61996121748",
+    "SDR": "61999160935",
+    "SDR": "61999077254",
+    "SDR": "61996174224",
+}
+
 LOGIN_URL = "https://vivogestao.vivoempresas.com.br/Portal/api/datapackcompanyinfo"
 RELATORIO_URL = "https://vivogestao.vivoempresas.com.br/Portal/api/voicereports?action=getCallHistory&msisdn={telefone}&startDate={startDate}&endDate={endDate}&startRow=1&fetchSize=50&sessionId={sessionId}&remoteHost=gateway&remoteIp={remoteIp}&acessLogin=santosegomes"
 
