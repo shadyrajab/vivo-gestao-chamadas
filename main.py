@@ -4,8 +4,12 @@ from datetime import datetime, time
 import pandas as pd
 import requests
 
-from utils.variables import (FREECEL, LOGIN_URL, PAYLOAD, RELATORIO_URL,
-                             VALPARAISO)
+from utils.variables import (
+    FREECEL, 
+    LOGIN_URL, 
+    PAYLOAD, 
+    RELATORIO_URL,
+    VALPARAISO)
 
 date = datetime.now()
 
