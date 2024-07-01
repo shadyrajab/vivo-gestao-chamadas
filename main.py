@@ -13,7 +13,6 @@ start_date = int(datetime.combine(date, time.min).timestamp()) * 1000
 end_date = int(datetime.combine(date, time.max).timestamp()) * 1000 - 1
 
 
-
 def login_vivo_gestao(url: str, payload: dict):
     response = requests.post(url, json=payload)
     json = response.json()
@@ -21,7 +20,11 @@ def login_vivo_gestao(url: str, payload: dict):
     return json["sessionId"], json["remoteIp"]
 
 
-def get_total_record_count(url: str, consultor: str, telefone: str, RECORDS:list):
+def get_total_record_count(
+        url: str,
+        consultor: str,
+        telefone: str,
+        RECORDS: list):
     response = requests.get(url)
     json = response.json()
     result = {
@@ -30,6 +33,7 @@ def get_total_record_count(url: str, consultor: str, telefone: str, RECORDS:list
         "CHAMADAS": json["totalRecordCount"],
     }
     RECORDS.append(result)
+
 
 def get_threads(consultores: dict):
     RECORDS = []
@@ -59,7 +63,13 @@ def get_threads(consultores: dict):
 
     return pd.DataFrame(RECORDS)
 
+
 session_id, remote_ip = login_vivo_gestao(LOGIN_URL, PAYLOAD)
 
-get_threads(FREECEL).to_excel(f"relatorio chamadas {date.strftime("%d-%m-%Y")}.xlsx", index=False)
-get_threads(VALPARAISO).to_excel(f"relatorio chamadas {date.strftime("%d-%m-%Y")} valparaiso.xlsx", index=False)
+get_threads(FREECEL).to_excel(
+    f"relatorio chamadas {date.strftime("%d-%m-%Y")}.xlsx",
+    index=False)
+
+get_threads(VALPARAISO).to_excel(
+    f"relatorio chamadas {date.strftime("%d-%m-%Y")} valparaiso.xlsx",
+    index=False)
