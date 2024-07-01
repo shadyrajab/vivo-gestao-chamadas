@@ -5,9 +5,9 @@ import pandas as pd
 import requests
 
 from utils.variables import (
-    FREECEL, 
-    LOGIN_URL, 
-    PAYLOAD, 
+    FREECEL,
+    LOGIN_URL,
+    PAYLOAD,
     RELATORIO_URL,
     VALPARAISO)
 
