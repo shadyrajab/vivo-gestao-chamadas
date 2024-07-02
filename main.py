@@ -9,7 +9,8 @@ from utils.variables import (
     LOGIN_URL,
     PAYLOAD,
     RELATORIO_URL,
-    VALPARAISO)
+    VALPARAISO,
+    convert_time)
 
 date = datetime.now()
 
@@ -29,12 +30,29 @@ def get_total_record_count(
         consultor: str,
         telefone: str,
         RECORDS: list):
+    total_duration = 0
     response = requests.get(url)
     json = response.json()
+    result = json['result']
+    qtd_ligacoes = len(result)
+    if qtd_ligacoes:
+        for r in result:
+            total_duration += r.get('duration')
+
+    minutes, seconds = convert_time(total_duration)
+
+    total = f'{minutes} minutos e {seconds} segundos'
+
+    minutes, seconds = convert_time((total_duration / qtd_ligacoes) if (
+        qtd_ligacoes > 0) else 0)
+
+    mean = f'{minutes} minutos e {seconds} segundos'
     result = {
         "CONSULTOR": consultor,
         "TELEFONE": telefone,
         "CHAMADAS": json["totalRecordCount"],
+        "DURAÇÃO TOTAL": total,
+        "MÉDIA POR CHAMADA": mean,
     }
     RECORDS.append(result)
 
@@ -71,7 +89,7 @@ def get_threads(consultores: dict):
 session_id, remote_ip = login_vivo_gestao(LOGIN_URL, PAYLOAD)
 
 get_threads(FREECEL).to_excel(
-    f"relatorio chamadas {date.strftime("%d-%m-%Y")}.xlsx",
+    f"relatorio chamadas {date.strftime("%d-%m-%Y")} DF.xlsx",
     index=False)
 
 get_threads(VALPARAISO).to_excel(
