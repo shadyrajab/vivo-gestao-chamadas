@@ -10,12 +10,13 @@ from utils.variables import (
     PAYLOAD,
     RELATORIO_URL,
     VALPARAISO,
-    convert_time)
+    convert_time
+    )
 
 date = datetime.now()
 
-start_date = int(datetime.combine(date, time.min).timestamp()) * 1000
-end_date = int(datetime.combine(date, time.max).timestamp()) * 1000 - 1
+start_date = int(date.timestamp()) * 1000
+end_date = int(date.timestamp()) * 1000 - 1
 
 
 def login_vivo_gestao(url: str, payload: dict):
@@ -92,6 +93,6 @@ get_threads(FREECEL).to_excel(
     f"relatorio chamadas {date.strftime("%d-%m-%Y")} DF.xlsx",
     index=False)
 
-get_threads(VALPARAISO).to_excel(
-    f"relatorio chamadas {date.strftime("%d-%m-%Y")} valparaiso.xlsx",
-    index=False)
+# get_threads(VALPARAISO).to_excel(
+#                     f"relatorio chamadas {date.strftime("%d-%m-%Y")} valparaiso.xlsx",
+#     index=False)
