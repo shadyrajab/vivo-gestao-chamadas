@@ -64,7 +64,7 @@ RELATORIO_URL = (
     "&sessionId={sessionId}" +
     "&remoteHost=gateway" +
     "&remoteIp={remoteIp}" +
-    "&acessLogin=santosegomes"
+    f"&acessLogin={os.getenv("user")}"
 )
 
 PAYLOAD = {
